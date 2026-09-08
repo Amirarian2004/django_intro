@@ -1,0 +1,8 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Post {{ post_id }}{% endblock %}
+
+{% block content %}
+    <h1>Post Details</h1>
+    <p>Viewing post #{{ post_id }} via {{ request.method }}</p>
+{% endblock %}
