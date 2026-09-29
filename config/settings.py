@@ -13,7 +13,12 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 
 
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'blog',
 ]
 
 
@@ -111,10 +117,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # DATABASES — configures the database connection. ENGINE selects the database
 # driver (SQLite here; could be PostgreSQL/MySQL). NAME is the SQLite file path,
 # or the database name for other engines (which also need USER/PASSWORD/HOST).
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# DATABASES — configures the database connection. ENGINE selects the
+# database driver (PostgreSQL here). NAME is the database name; USER,
+# PASSWORD, HOST, and PORT come from environment variables (.env).
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
