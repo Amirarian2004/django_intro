@@ -1,9 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
-from .models import Post
+from .models import Category, Post
 
-# admin.site.register(Post)
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -11,3 +9,9 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     list_filter = ('status', 'is_featured')
     ordering = ('-created_at',)
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created_at')
+    search_fields = ('name',)
